@@ -57,18 +57,18 @@ public class RomanConverterService {
             throw new IllegalArgumentException("Input must be between 1 and 3999.");
         }
 
-        StringBuilder romanNumeral = new StringBuilder();
+        StringBuilder result = new StringBuilder();
 
         // Iterate over the RomanNumeral values in descending order
         for (RomanNumeral symbol : RomanNumeral.getReverseSortedValues()) {
             while (inputValue >= symbol.getValue()) {
-                romanNumeral.append(symbol.name());
+                result.append(symbol.name());
                 inputValue -= symbol.getValue();
             }
         }
 
-        log.info("Converted Arabic numeral '{}' to Roman numeral '{}'", input, romanNumeral.toString());
-        return romanNumeral.toString();
+        log.info("Converted Arabic numeral '{}' to Roman numeral '{}'", input, result);
+        return result.toString();
     }
 
 
