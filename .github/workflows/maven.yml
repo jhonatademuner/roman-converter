@@ -47,8 +47,8 @@ jobs:
           with:
             projectBaseDir: .
           args: >
-            -Dsonar.organization=kenzokomati
-            -Dsonar.projectKey=kenzokomati_es-int-rom-converter
+            -Dsonar.organization=jhonata-demuner-org
+            -Dsonar.projectKey=jhonatademuner_roman-converter
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.sources=.
             -Dsonar.tests=.
