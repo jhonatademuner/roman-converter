@@ -39,8 +39,17 @@ jobs:
       - name: Run tests with Maven
         run: mvn test --file pom.xml
 
-#      - name: Build and analyze with SonarQube
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed for GitHub PR information
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=jhonatademuner_roman-converter
+      - name: SonarQube Cloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          with:
+            projectBaseDir: .
+          args: >
+            -Dsonar.organization=kenzokomati
+            -Dsonar.projectKey=kenzokomati_es-int-rom-converter
+            -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.sources=.
+            -Dsonar.tests=.
+            -Dsonar.test.inclusions=**/*Tests.java
