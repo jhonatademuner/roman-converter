@@ -19,6 +19,8 @@ public class RomanConverterService {
             throw new IllegalArgumentException("Input cannot be null or blank.");
         }
 
+        input = sanitizeInput(input);
+
         String romanNumeral = input.toUpperCase();
         if (!isValidRomanNumeral(romanNumeral)) {
             log.error("Invalid Roman numeral: {}", input);
@@ -52,6 +54,8 @@ public class RomanConverterService {
             throw new IllegalArgumentException("Input cannot be null or blank.");
         }
 
+        input = sanitizeInput(input);
+
         int inputValue = Integer.parseInt(input);
         if (inputValue <= 0 || inputValue >= 4000) {
             throw new IllegalArgumentException("Input must be between 1 and 3999.");
@@ -59,7 +63,6 @@ public class RomanConverterService {
 
         StringBuilder result = new StringBuilder();
 
-        // Iterate over the RomanNumeral values in descending order
         for (RomanNumeral symbol : RomanNumeral.getReverseSortedValues()) {
             while (inputValue >= symbol.getValue()) {
                 result.append(symbol.name());
@@ -75,6 +78,10 @@ public class RomanConverterService {
     private boolean isValidRomanNumeral(String input) {
         String romanRegex = "^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$";
         return input.matches(romanRegex);
+    }
+
+    private String sanitizeInput(String input){
+        return input.replaceAll("[\n\r]", "_");
     }
 
 }
