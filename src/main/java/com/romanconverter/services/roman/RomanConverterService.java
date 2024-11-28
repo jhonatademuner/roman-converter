@@ -12,6 +12,7 @@ public class RomanConverterService {
 
     private static final Logger log = LoggerFactory.getLogger(RomanConverterService.class);
 
+
     public String romanToArabic(String input) {
 
         if (input == null || input.isBlank()) {
@@ -44,8 +45,34 @@ public class RomanConverterService {
         return String.valueOf(result);
     }
 
+
+    public String arabicToRoman(String input) {
+
+        if (input == null || input.isBlank()) {
+            throw new IllegalArgumentException("Input cannot be null or blank.");
+        }
+
+        int inputValue = Integer.parseInt(input);
+        if (inputValue <= 0 || inputValue >= 4000) {
+            throw new IllegalArgumentException("Input must be between 1 and 3999.");
+        }
+
+        StringBuilder romanNumeral = new StringBuilder();
+
+        // Iterate over the RomanNumeral values in descending order
+        for (RomanNumeral symbol : RomanNumeral.getReverseSortedValues()) {
+            while (inputValue >= symbol.getValue()) {
+                romanNumeral.append(symbol.name());
+                inputValue -= symbol.getValue();
+            }
+        }
+
+        log.info("Converted Arabic numeral '{}' to Roman numeral '{}'", input, romanNumeral.toString());
+        return romanNumeral.toString();
+    }
+
+
     private boolean isValidRomanNumeral(String input) {
-        // Regex to validate Roman numerals according to standard rules
         String romanRegex = "^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$";
         return input.matches(romanRegex);
     }

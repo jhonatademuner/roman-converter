@@ -16,14 +16,16 @@ public enum RomanNumeral {
 
     private final int value;
 
+
     RomanNumeral(int value) {
         this.value = value;
     }
 
+
     public static List<RomanNumeral> getReverseSortedValues() {
         return Arrays.stream(values())
             .sorted(Comparator.comparing((RomanNumeral e) -> e.value).reversed())
-            .collect(Collectors.toList());
+            .toList();
     }
 
 }
