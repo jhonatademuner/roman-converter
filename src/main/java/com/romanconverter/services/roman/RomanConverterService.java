@@ -12,7 +12,6 @@ public class RomanConverterService {
 
     private static final Logger log = LoggerFactory.getLogger(RomanConverterService.class);
 
-
     public String romanToArabic(String input) {
 
         if (input == null || input.isBlank()) {

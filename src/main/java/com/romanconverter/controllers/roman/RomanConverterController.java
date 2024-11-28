@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RomanConverterController {
 
-    @Autowired
-    private RomanConverterService romanConverterService;
+    private final RomanConverterService romanConverterService;
 
+    @Autowired
+    public RomanConverterController(RomanConverterService romanConverterService) {
+        this.romanConverterService = romanConverterService;
+    }
 
     @PostMapping("api/roman-to-arabic")
     public String convertRomanToArabic(@RequestParam String input){
